@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from jenkinsapi.jenkins import Jenkins
 import sqlite3
-import datetime from datetime
+from datetime import datetime
 
 def get_server_instance(jenkins_url,username,password):
     server = Jenkins(jenkins_url, username, password)
@@ -15,14 +15,14 @@ def get_job_details():
   server = get_server_instance(url,username,password)
   conn=databaseConnection()
   cursor = conn.cursor()
+  now=datetime.now()
   for j in server.get_jobs():
     job_instance = server.get_job(j[0])
     print 'Job Name:%s' %(job_instance.name)
     print 'Job Description:%s' %(job_instance.get_description())
     print 'Is Job running:%s' %(job_instance.is_running())
     print 'Is Job enabled:%s' %(job_instance.is_enabled())
-    cursor.execute("INSERT INTO jobs(name, status,date) VALUES(?, ?)",
-     (job_instance.name, job_instance.is_running(),datetime.date.year)+"/"+datetime.date.month+"/"+datetime.date.day)
+    cursor.execute("INSERT INTO jobs(name, status,date) VALUES(?, ?)",(job_instance.name, job_instance.is_running(),now)
         
   conn.commit()
   conn.close()
