@@ -36,7 +36,7 @@ def databaseConnection():
      id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
      name TEXT,
      status INTERGER,
-     date INTEGER
+     date TEXT
 )
 """)
   conn.commit()
